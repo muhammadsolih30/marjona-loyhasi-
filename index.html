@@ -693,6 +693,53 @@
     .form-grid{grid-template-columns:1fr;}
     section{padding:64px 0;}
   }
+  /* --- SCROLL ANIMATIONS --- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-left.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-scale.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  /* Stagger delays for multiple items */
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
+  .delay-400 { transition-delay: 400ms; }
+  .delay-500 { transition-delay: 500ms; }
 </style>
 </head>
 <body>
@@ -720,12 +767,12 @@
       <div class="kicker">TARGETOLOG · SIFATLI LID MUTAXASSISI</div>
       <h1>Reklamaga pul emas, <em>natija</em> muhim</h1>
       <p class="hero-sub">Biznesingiz uchun reklama kampaniyalarini AI, analitika va real ko'rsatkichlar asosida ishlab chiqaman va optimallashtiraman — pulingiz aniq maqsadga ishlaydi.</p>
-      <div class="hero-tags">
+      <div class="hero-tags reveal delay-200">
         <span>1,5 yillik tajriba</span>
         <span>Sifatli lidlar</span>
         <span>Sotuvga yo'naltirilgan reklama</span>
       </div>
-      <div class="hero-cta">
+      <div class="hero-cta reveal delay-100">
         <a href="#forma" class="btn btn-primary">Bepul maslahat olish</a>
         <a href="#natijalar" class="btn btn-ghost">Portfolio bilan tanishish</a>
       </div>
@@ -744,7 +791,7 @@
   </div>
 </section>
 
-<div class="statstrip">
+<div class="statstrip reveal delay-300">
   <div class="wrap">
     <div class="stat">
       <div class="num"><span>38 000+</span></div>
@@ -767,7 +814,7 @@
 
 <section id="muammo">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="kicker">MUAMMO</div>
       <h2>Reklamangiz ishlayapti, lekin natija siz kutgandek emasmi?</h2>
     </div>
@@ -804,7 +851,7 @@
 
 <section id="natijalar">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="kicker">NATIJALAR</div>
       <h2>Reklama kabinetidagi real ko'rsatkichlar</h2>
       <p>Har bir loyihada lid narxi va sifat foizi sotuvchi bilan birgalikda kuzatiladi.</p>
@@ -817,35 +864,35 @@
         <div>1 lid narxi</div>
         <div>Sifatli lid</div>
       </div>
-      <div class="case-row">
+      <div class="case-row reveal">
         <div class="case-name"><span class="niche">Qurilish</span><span class="client">Ulug' House</span></div>
         <div class="case-col"><span class="v">686</span><span class="l">lid</span></div>
         <div class="case-col"><span class="v">$1 085.91</span><span class="l">byudjet</span></div>
         <div class="case-col"><span class="v">$1.58</span><span class="l">1 ta lid</span></div>
         <div class="case-col quality"><span class="v">70%</span><span class="l">sifatli lid</span></div>
       </div>
-      <div class="case-row">
+      <div class="case-row reveal">
         <div class="case-name"><span class="niche">Qurilish</span><span class="client">Jahon House</span></div>
         <div class="case-col"><span class="v">23 002</span><span class="l">lid</span></div>
         <div class="case-col"><span class="v">$23 002</span><span class="l">byudjet</span></div>
         <div class="case-col"><span class="v">$1.45</span><span class="l">1 ta lid</span></div>
         <div class="case-col quality"><span class="v">70%</span><span class="l">sifatli lid</span></div>
       </div>
-      <div class="case-row">
+      <div class="case-row reveal">
         <div class="case-name"><span class="niche">Qurilish</span><span class="client">Milliy Makon</span></div>
         <div class="case-col"><span class="v">6 163</span><span class="l">lid</span></div>
         <div class="case-col"><span class="v">$9 445.75</span><span class="l">byudjet</span></div>
         <div class="case-col"><span class="v">$1.53</span><span class="l">1 ta lid</span></div>
         <div class="case-col quality"><span class="v">70%</span><span class="l">sifatli lid</span></div>
       </div>
-      <div class="case-row">
+      <div class="case-row reveal">
         <div class="case-name"><span class="niche">B2B</span><span class="client">Bodor</span></div>
         <div class="case-col"><span class="v">1 393</span><span class="l">lid</span></div>
         <div class="case-col"><span class="v">$4 614.82</span><span class="l">byudjet</span></div>
         <div class="case-col"><span class="v">$3.31</span><span class="l">1 ta lid</span></div>
         <div class="case-col quality"><span class="v">70%</span><span class="l">sifatli lid</span></div>
       </div>
-      <div class="case-row">
+      <div class="case-row reveal">
         <div class="case-name"><span class="niche">Qurilish</span><span class="client">Obod Makon</span></div>
         <div class="case-col"><span class="v">7 042</span><span class="l">lid</span></div>
         <div class="case-col"><span class="v">$9 167.24</span><span class="l">byudjet</span></div>
@@ -879,7 +926,7 @@
 </div>
 
 <section id="men-haqimda">
-  <div class="wrap about-grid">
+  <div class="wrap about-grid reveal">
     <div>
       <div class="kicker">MEN HAQIMDA</div>
       <h2>Marjona Rabbimova</h2>
@@ -909,13 +956,13 @@
 
 <section id="paketlar">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="kicker">PAKETLAR</div>
       <h2>Biznesingizga mos paketni tanlang</h2>
       <p>Har uchala paket target strategiya va pro target xizmatini o'z ichiga oladi.</p>
     </div>
     <div class="pricing-grid">
-      <div class="plan">
+      <div class="plan reveal-scale delay-100">
         <div class="pname">Standart</div>
         <div class="pprice">$200<span>/oy</span></div>
         <div class="pdesc">Targetni professional yo'lga qo'yish uchun.</div>
@@ -927,7 +974,7 @@
         </ul>
         <a href="#forma" class="btn btn-ghost">Tanlash</a>
       </div>
-      <div class="plan featured">
+      <div class="plan featured reveal-scale delay-200">
         <div class="pname">Premium</div>
         <div class="pprice">$350<span>/oy</span></div>
         <div class="pdesc">Ko'proq kreativ va sotuvchi funnel kerak bo'lgan biznes uchun.</div>
@@ -940,7 +987,7 @@
         </ul>
         <a href="#forma" class="btn btn-primary">Tanlash</a>
       </div>
-      <div class="plan">
+      <div class="plan reveal-scale delay-100">
         <div class="pname">VIP — To'liq tizim</div>
         <div class="pprice">$500<span>/oy</span></div>
         <div class="pdesc">Reklamadan CRMgacha to'liq lead generatsiya infratuzilmasi.</div>
@@ -968,7 +1015,7 @@
         <p class="body">Ismingiz va telefon raqamingizni qoldiring — Marjona siz bilan bog'lanib, biznesingizga sifatli lid olib kelish bo'yicha qisqa maslahat beradi.</p>
       </div>
       <div class="form-box">
-        <form id="leadForm">
+        <form id="leadForm" class="contact-form reveal-scale delay-300">
           <div class="field">
             <label for="f-name">Ism</label>
             <input type="text" id="f-name" required placeholder="Ismingiz">
@@ -1080,6 +1127,27 @@
     document.getElementById('formSuccess').style.display = 'block';
     window.open(tgLink, '_blank');
     this.reset();
+  });
+
+  // Scroll animations observer
+  document.addEventListener("DOMContentLoaded", () => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+    revealElements.forEach(el => observer.observe(el));
   });
 </script>
 
