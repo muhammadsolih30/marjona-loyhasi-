@@ -355,16 +355,338 @@
   }
   .problem-close b{color:var(--blue-glow);font-weight:600;}
 
-  /* ---- CASE LOG (results) ---- */
+  /* ---- PROOF & RESULTS SECTION ---- */
+  .proof-header-flex{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:28px;
+    flex-wrap:wrap;
+  }
+  .proof-budget-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    padding:12px 20px;
+    background:radial-gradient(circle at 15% 50%, rgba(58,160,255,0.18), transparent 70%), var(--panel);
+    border:1px solid rgba(58,160,255,0.3);
+    border-radius:999px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.35);
+  }
+  .proof-budget-badge .budget-num{
+    font-size:24px;
+    font-weight:700;
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--blue-glow);
+    line-height:1;
+  }
+  .proof-budget-badge .budget-lbl{
+    font-size:12px;
+    color:var(--muted);
+    font-family:'Space Grotesk',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    line-height:1.2;
+  }
+
+  /* View switch tabs */
+  .proof-tabs{
+    display:inline-flex;
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:4px;
+    gap:4px;
+    margin-bottom:24px;
+  }
+  .proof-tab-btn{
+    background:transparent;
+    border:none;
+    color:var(--muted);
+    padding:8px 16px;
+    font-size:13.5px;
+    font-weight:500;
+    transition:all .2s ease;
+  }
+  .proof-tab-btn.active{
+    background:var(--panel-2);
+    color:var(--blue-glow);
+    border:1px solid rgba(58,160,255,0.3);
+  }
+
+  /* Proof Card Grid */
+  .proof-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+    gap:24px;
+    margin-bottom:28px;
+  }
+  .proof-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+    position:relative;
+  }
+  .proof-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(58,160,255,0.4);
+    box-shadow:0 16px 36px rgba(0,0,0,0.45), 0 0 20px rgba(58,160,255,0.08);
+  }
+  .proof-card-media{
+    position:relative;
+    height:185px;
+    background:#070d18;
+    overflow:hidden;
+    cursor:pointer;
+    border-bottom:1px solid var(--line);
+  }
+  .proof-card-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:top center;
+    transition:transform .4s ease, filter .3s ease;
+    filter:brightness(0.92);
+  }
+  .proof-card:hover .proof-card-media img{
+    transform:scale(1.05);
+    filter:brightness(1);
+  }
+  .proof-media-badge{
+    position:absolute;
+    bottom:10px;
+    right:10px;
+    background:rgba(7,11,20,0.88);
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(58,160,255,0.4);
+    color:var(--blue-glow);
+    font-size:11px;
+    font-weight:600;
+    padding:5px 10px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border-radius:2px;
+    pointer-events:none;
+    transition:background .2s;
+  }
+  .proof-card:hover .proof-media-badge{
+    background:rgba(58,160,255,0.25);
+    color:#fff;
+  }
+  .proof-card-body{
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    gap:16px;
+  }
+  .proof-card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+  }
+  .proof-card-top .niche{
+    display:inline-block;
+    font-size:11px;
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--blue-glow);
+    background:rgba(58,160,255,0.12);
+    border:1px solid rgba(58,160,255,0.25);
+    padding:3px 8px;
+    border-radius:2px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .proof-card-top .client{
+    font-size:19px;
+    font-weight:700;
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--text);
+    margin-top:4px;
+  }
+  .proof-verified-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-size:11px;
+    color:#34d399;
+    background:rgba(16,185,129,0.1);
+    border:1px solid rgba(16,185,129,0.25);
+    padding:3px 8px;
+    border-radius:2px;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .proof-metrics-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    background:rgba(17,28,51,0.5);
+    border:1px solid var(--line-soft);
+    padding:12px;
+  }
+  .proof-metric-item{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .proof-metric-item .val{
+    font-size:17px;
+    font-weight:700;
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--text);
+  }
+  .proof-metric-item.highlight .val{
+    color:var(--blue-glow);
+  }
+  .proof-metric-item.quality .val{
+    color:var(--amber);
+  }
+  .proof-metric-item .lbl{
+    font-size:11.5px;
+    color:var(--muted);
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .proof-card-footer{
+    margin-top:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-top:12px;
+    border-top:1px dashed var(--line-soft);
+  }
+  .proof-view-btn{
+    background:transparent;
+    border:none;
+    color:var(--blue);
+    font-size:13px;
+    font-weight:600;
+    font-family:'Space Grotesk',sans-serif;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:0;
+    cursor:pointer;
+    transition:color .2s ease, transform .2s ease;
+  }
+  .proof-view-btn:hover{
+    color:var(--blue-glow);
+    transform:translateX(3px);
+  }
+  .proof-status-tag{
+    font-size:11.5px;
+    color:var(--muted-2);
+    font-family:'Space Grotesk',sans-serif;
+  }
+
+  /* Fullscreen Image Lightbox Modal */
+  .lightbox-modal{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:rgba(4,7,15,0.92);
+    backdrop-filter:blur(12px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease;
+    padding:20px;
+  }
+  .lightbox-modal.open{
+    opacity:1;
+    pointer-events:auto;
+  }
+  .lightbox-container{
+    position:relative;
+    max-width:960px;
+    width:100%;
+    background:var(--panel);
+    border:1px solid var(--line);
+    box-shadow:0 24px 70px rgba(0,0,0,0.8), 0 0 30px rgba(58,160,255,0.2);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  .lightbox-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 20px;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--line);
+  }
+  .lightbox-head h3{
+    font-size:17px;
+    font-family:'Space Grotesk',sans-serif;
+    color:var(--text);
+  }
+  .lightbox-close-btn{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--muted);
+    width:34px;
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:2px;
+    font-size:18px;
+    cursor:pointer;
+    transition:all .2s;
+  }
+  .lightbox-close-btn:hover{
+    color:#fff;
+    border-color:var(--blue);
+    background:rgba(58,160,255,0.15);
+  }
+  .lightbox-body{
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#070d18;
+    max-height:75vh;
+    overflow:auto;
+  }
+  .lightbox-body img{
+    max-width:100%;
+    max-height:70vh;
+    object-fit:contain;
+    border:1px solid var(--line);
+  }
+  .lightbox-foot{
+    padding:14px 20px;
+    background:var(--panel-2);
+    border-top:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size:13px;
+    color:var(--muted);
+    font-family:'Space Grotesk',sans-serif;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  /* ---- CASE LOG (table view option) ---- */
   .caselog{
     border-top:1px solid var(--line);
+    display:none; /* Shown when table tab selected */
+  }
+  .caselog.show{
+    display:block;
   }
   .case-row{
     display:grid;
-    grid-template-columns:1.4fr repeat(4,0.85fr);
+    grid-template-columns:1.4fr repeat(4,0.85fr) 100px;
     align-items:center;
     gap:16px;
-    padding:22px 22px;
+    padding:20px 22px;
     border-bottom:1px solid var(--line);
     border-left:2px solid transparent;
     transition:border-color .15s, background .15s;
@@ -412,6 +734,19 @@
     color:var(--muted);
   }
   .case-col.quality .v{color:var(--amber);}
+  .case-img-link{
+    font-size:12px;
+    color:var(--blue);
+    font-family:'Space Grotesk',sans-serif;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    cursor:pointer;
+  }
+  .case-img-link:hover{
+    color:var(--blue-glow);
+  }
 
   .case-note{
     margin-top:22px;
@@ -684,6 +1019,8 @@
     .statstrip .wrap{grid-template-columns:repeat(2,1fr);}
     .stat:nth-child(3){border-left:none;}
     .stat{border-bottom:1px solid var(--line-soft);}
+    .proof-header-flex{flex-direction:column;align-items:flex-start;gap:16px;}
+    .proof-grid{grid-template-columns:1fr;}
     .case-row{grid-template-columns:1fr;gap:10px;padding:20px 16px;}
     .case-row.head{display:none;}
     .case-col{flex-direction:row;justify-content:space-between;border-bottom:1px dashed var(--line-soft);padding-bottom:6px;}
@@ -692,6 +1029,15 @@
     .pricing-grid{grid-template-columns:1fr;}
     .form-grid{grid-template-columns:1fr;}
     section{padding:64px 0;}
+  }
+
+  @media (max-width: 600px){
+    .proof-budget-badge{width:100%;justify-content:space-between;}
+    .proof-tabs{width:100%;display:flex;}
+    .proof-tab-btn{flex:1;text-align:center;padding:8px 10px;font-size:12.5px;}
+    .proof-card-media{height:160px;}
+    .lightbox-modal{padding:10px;}
+    .lightbox-body{padding:10px;}
   }
   /* --- SCROLL ANIMATIONS --- */
   .reveal {
@@ -851,56 +1197,336 @@
 
 <section id="natijalar">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="kicker">NATIJALAR</div>
-      <h2>Reklama kabinetidagi real ko'rsatkichlar</h2>
-      <p>Har bir loyihada lid narxi va sifat foizi sotuvchi bilan birgalikda kuzatiladi.</p>
+    <div class="proof-header-flex reveal">
+      <div class="section-head" style="margin-bottom:0;">
+        <div class="kicker">ISBOTLANGAN NATIJALAR</div>
+        <h2>Reklama kabinetidagi real skrinshotlar</h2>
+        <p>Har bir loyiha bo'yicha sarflangan byudjet, lidlar soni va 1 ta lid narxi ochiq ko'rsatilgan.</p>
+      </div>
+      <div class="proof-budget-badge">
+        <div class="budget-num">$47 315+</div>
+        <div class="budget-lbl">Boshqarilgan<br>reklama byudjeti</div>
+      </div>
     </div>
-    <div class="caselog">
+
+    <!-- Switch tabs for Grid / Table -->
+    <div class="proof-tabs reveal">
+      <button class="proof-tab-btn active" id="tabGridBtn" onclick="switchProofView('grid')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>Skrinshotli kartochkalar
+      </button>
+      <button class="proof-tab-btn" id="tabTableBtn" onclick="switchProofView('table')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:6px;"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>Jadval ko'rinishi
+      </button>
+    </div>
+
+    <!-- 1. Rich Cards Grid (default) -->
+    <div class="proof-grid" id="proofGrid">
+      
+      <!-- Card 1: Jahon House -->
+      <article class="proof-card reveal">
+        <div class="proof-card-media" onclick="openLightbox('page/photo_2026-09-01_05-28-35.jpg', 'Qurilish — Jahon House', '23 002 lid | $23 002 byudjet | $1.45/lid | 70% sifat')">
+          <img src="page/photo_2026-09-01_05-28-35.jpg" alt="Jahon House reklama kabineti skrinshoti" loading="lazy">
+          <div class="proof-media-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            Skrinshotni ko'rish
+          </div>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-card-top">
+            <div>
+              <span class="niche">Qurilish</span>
+              <h3 class="client">Jahon House</h3>
+            </div>
+            <span class="proof-verified-pill">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              Tasdiqlangan
+            </span>
+          </div>
+
+          <div class="proof-metrics-grid">
+            <div class="proof-metric-item highlight">
+              <span class="val">23 002</span>
+              <span class="lbl">Jami lid</span>
+            </div>
+            <div class="proof-metric-item">
+              <span class="val">$1.45</span>
+              <span class="lbl">1 ta lid narxi</span>
+            </div>
+            <div class="proof-metric-item">
+              <span class="val">$23 002</span>
+              <span class="lbl">Sarflangan byudjet</span>
+            </div>
+            <div class="proof-metric-item quality">
+              <span class="val">70%</span>
+              <span class="lbl">Sifatli lid</span>
+            </div>
+          </div>
+
+          <div class="proof-card-footer">
+            <button class="proof-view-btn" onclick="openLightbox('page/photo_2026-09-01_05-28-35.jpg', 'Qurilish — Jahon House', '23 002 lid | $23 002 byudjet | $1.45/lid | 70% sifat')">
+              Hisobotni tekshirish
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <span class="proof-status-tag">Yirik turar joy</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2: Milliy Makon -->
+      <article class="proof-card reveal delay-100">
+        <div class="proof-card-media" onclick="openLightbox('page/photo_2026-09-14_15-47-06.jpg', 'Qurilish — Milliy Makon', '6 163 lid | $9 445.75 byudjet | $1.53/lid | 70% sifat')">
+          <img src="page/photo_2026-09-14_15-47-06.jpg" alt="Milliy Makon reklama kabineti skrinshoti" loading="lazy">
+          <div class="proof-media-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            Skrinshotni ko'rish
+          </div>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-card-top">
+            <div>
+              <span class="niche">Qurilish</span>
+              <h3 class="client">Milliy Makon</h3>
+            </div>
+            <span class="proof-verified-pill">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              Tasdiqlangan
+            </span>
+          </div>
+
+          <div class="proof-metrics-grid">
+            <div class="proof-metric-item highlight">
+              <span class="val">6 163</span>
+              <span class="lbl">Jami lid</span>
+            </div>
+            <div class="proof-metric-item">
+              <span class="val">$1.53</span>
+              <span class="lbl">1 ta lid narxi</span>
+            </div>
+            <div class="proof-metric-item">
+              <span class="val">$9 445.75</span>
+              <span class="lbl">Sarflangan byudjet</span>
+            </div>
+            <div class="proof-metric-item quality">
+              <span class="val">70%</span>
+              <span class="lbl">Sifatli lid</span>
+            </div>
+          </div>
+
+          <div class="proof-card-footer">
+            <button class="proof-view-btn" onclick="openLightbox('page/photo_2026-09-14_15-47-06.jpg', 'Qurilish — Milliy Makon', '6 163 lid | $9 445.75 byudjet | $1.53/lid | 70% sifat')">
+              Hisobotni tekshirish
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <span class="proof-status-tag">Ko'chmas mulk</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: Obod Makon -->
+      <article class="proof-card reveal delay-200">
+        <div class="proof-card-media" onclick="openLightbox('page/photo_2026-09-14_15-47-53.jpg', 'Qurilish — Obod Makon', '7 042 lid | $9 167.24 byudjet | $1.30/lid | 70% sifat')">
+          <img src="page/photo_2026-09-14_15-47-53.jpg" alt="Obod Makon reklama kabineti skrinshoti" loading="lazy">
+          <div class="proof-media-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            Skrinshotni ko'rish
+          </div>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-card-top">
+            <div>
+              <span class="niche">Qurilish</span>
+              <h3 class="client">Obod Makon</h3>
+            </div>
+            <span class="proof-verified-pill">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              Tasdiqlangan
+            </span>
+          </div>
+
+          <div class="proof-metrics-grid">
+            <div class="proof-metric-item highlight">
+              <span class="val">7 042</span>
+              <span class="lbl">Jami lid</span>
+            </div>
+            <div class="proof-metric-item">
+              <span class="val">$1.30</span>
+              <span class="lbl">1 ta lid narxi</span>
+            </div>
+            <div class="proof-metric-item">
+              <span class="val">$9 167.24</span>
+              <span class="lbl">Sarflangan byudjet</span>
+            </div>
+            <div class="proof-metric-item quality">
+              <span class="val">70%</span>
+              <span class="lbl">Sifatli lid</span>
+            </div>
+          </div>
+
+          <div class="proof-card-footer">
+            <button class="proof-view-btn" onclick="openLightbox('page/photo_2026-09-14_15-47-53.jpg', 'Qurilish — Obod Makon', '7 042 lid | $9 167.24 byudjet | $1.30/lid | 70% sifat')">
+              Hisobotni tekshirish
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <span class="proof-status-tag">Aholi maskani</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4: B2B Bodor -->
+      <article class="proof-card reveal">
+        <div class="proof-card-media" onclick="openLightbox('page/photo_2026-09-14_15-47-30.jpg', 'B2B Sektori — Bodor', '1 393 lid | $4 614.82 byudjet | $3.31/lid | 70% sifat')">
+          <img src="page/photo_2026-09-14_15-47-30.jpg" alt="Bodor reklama kabineti skrinshoti" loading="lazy">
+          <div class="proof-media-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            Skrinshotni ko'rish
+          </div>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-card-top">
+            <div>
+              <span class="niche">B2B Sektor</span>
+              <h3 class="client">Bodor</h3>
+            </div>
+            <span class="proof-verified-pill">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              Tasdiqlangan
+            </span>
+          </div>
+
+          <div class="proof-metrics-grid">
+            <div class="proof-metric-item highlight">
+              <span class="val">1 393</span>
+              <span class="lbl">Jami lid</span>
+            </div>
+            <div class="proof-metric-item">
+              <span class="val">$3.31</span>
+              <span class="lbl">1 ta lid narxi</span>
+            </div>
+            <div class="proof-metric-item">
+              <span class="val">$4 614.82</span>
+              <span class="lbl">Sarflangan byudjet</span>
+            </div>
+            <div class="proof-metric-item quality">
+              <span class="val">70%</span>
+              <span class="lbl">Sifatli lid</span>
+            </div>
+          </div>
+
+          <div class="proof-card-footer">
+            <button class="proof-view-btn" onclick="openLightbox('page/photo_2026-09-14_15-47-30.jpg', 'B2B Sektori — Bodor', '1 393 lid | $4 614.82 byudjet | $3.31/lid | 70% sifat')">
+              Hisobotni tekshirish
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <span class="proof-status-tag">B2B uskunalar</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 5: Ulug' House -->
+      <article class="proof-card reveal delay-100">
+        <div class="proof-card-media" onclick="openLightbox('page/image_2026-09-01_05-26-24.png', 'Qurilish — Ulug\' House residence', '686 lid | $1 085.91 byudjet | $1.58/lid | 70% sifat')">
+          <img src="page/image_2026-09-01_05-26-24.png" alt="Ulug' House residence reklama kabineti skrinshoti" loading="lazy">
+          <div class="proof-media-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            Skrinshotni ko'rish
+          </div>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-card-top">
+            <div>
+              <span class="niche">Qurilish</span>
+              <h3 class="client">Ulug' House</h3>
+            </div>
+            <span class="proof-verified-pill">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              Tasdiqlangan
+            </span>
+          </div>
+
+          <div class="proof-metrics-grid">
+            <div class="proof-metric-item highlight">
+              <span class="val">686</span>
+              <span class="lbl">Jami lid</span>
+            </div>
+            <div class="proof-metric-item">
+              <span class="val">$1.58</span>
+              <span class="lbl">1 ta lid narxi</span>
+            </div>
+            <div class="proof-metric-item">
+              <span class="val">$1 085.91</span>
+              <span class="lbl">Sarflangan byudjet</span>
+            </div>
+            <div class="proof-metric-item quality">
+              <span class="val">70%</span>
+              <span class="lbl">Sifatli lid</span>
+            </div>
+          </div>
+
+          <div class="proof-card-footer">
+            <button class="proof-view-btn" onclick="openLightbox('page/image_2026-09-01_05-26-24.png', 'Qurilish — Ulug\' House residence', '686 lid | $1 085.91 byudjet | $1.58/lid | 70% sifat')">
+              Hisobotni tekshirish
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <span class="proof-status-tag">Residence turar joy</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- 2. Caselog Table view (switched via tabs) -->
+    <div class="caselog" id="proofTable">
       <div class="case-row head">
         <div>Loyiha</div>
         <div>Lid soni</div>
         <div>Byudjet</div>
         <div>1 lid narxi</div>
         <div>Sifatli lid</div>
+        <div>Skrinshot</div>
       </div>
-      <div class="case-row reveal">
+      <div class="case-row">
         <div class="case-name"><span class="niche">Qurilish</span><span class="client">Ulug' House</span></div>
         <div class="case-col"><span class="v">686</span><span class="l">lid</span></div>
         <div class="case-col"><span class="v">$1 085.91</span><span class="l">byudjet</span></div>
         <div class="case-col"><span class="v">$1.58</span><span class="l">1 ta lid</span></div>
         <div class="case-col quality"><span class="v">70%</span><span class="l">sifatli lid</span></div>
+        <div><button class="case-img-link" onclick="openLightbox('page/image_2026-09-01_05-26-24.png', 'Ulug\' House', '686 lid | $1 085.91 byudjet')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Ko'rish</button></div>
       </div>
-      <div class="case-row reveal">
+      <div class="case-row">
         <div class="case-name"><span class="niche">Qurilish</span><span class="client">Jahon House</span></div>
         <div class="case-col"><span class="v">23 002</span><span class="l">lid</span></div>
         <div class="case-col"><span class="v">$23 002</span><span class="l">byudjet</span></div>
         <div class="case-col"><span class="v">$1.45</span><span class="l">1 ta lid</span></div>
         <div class="case-col quality"><span class="v">70%</span><span class="l">sifatli lid</span></div>
+        <div><button class="case-img-link" onclick="openLightbox('page/photo_2026-09-01_05-28-35.jpg', 'Jahon House', '23 002 lid | $23 002 byudjet')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Ko'rish</button></div>
       </div>
-      <div class="case-row reveal">
+      <div class="case-row">
         <div class="case-name"><span class="niche">Qurilish</span><span class="client">Milliy Makon</span></div>
         <div class="case-col"><span class="v">6 163</span><span class="l">lid</span></div>
         <div class="case-col"><span class="v">$9 445.75</span><span class="l">byudjet</span></div>
         <div class="case-col"><span class="v">$1.53</span><span class="l">1 ta lid</span></div>
         <div class="case-col quality"><span class="v">70%</span><span class="l">sifatli lid</span></div>
+        <div><button class="case-img-link" onclick="openLightbox('page/photo_2026-09-14_15-47-06.jpg', 'Milliy Makon', '6 163 lid | $9 445.75 byudjet')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Ko'rish</button></div>
       </div>
-      <div class="case-row reveal">
+      <div class="case-row">
         <div class="case-name"><span class="niche">B2B</span><span class="client">Bodor</span></div>
         <div class="case-col"><span class="v">1 393</span><span class="l">lid</span></div>
         <div class="case-col"><span class="v">$4 614.82</span><span class="l">byudjet</span></div>
         <div class="case-col"><span class="v">$3.31</span><span class="l">1 ta lid</span></div>
         <div class="case-col quality"><span class="v">70%</span><span class="l">sifatli lid</span></div>
+        <div><button class="case-img-link" onclick="openLightbox('page/photo_2026-09-14_15-47-30.jpg', 'Bodor', '1 393 lid | $4 614.82 byudjet')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Ko'rish</button></div>
       </div>
-      <div class="case-row reveal">
+      <div class="case-row">
         <div class="case-name"><span class="niche">Qurilish</span><span class="client">Obod Makon</span></div>
         <div class="case-col"><span class="v">7 042</span><span class="l">lid</span></div>
         <div class="case-col"><span class="v">$9 167.24</span><span class="l">byudjet</span></div>
         <div class="case-col"><span class="v">$1.30</span><span class="l">1 ta lid</span></div>
         <div class="case-col quality"><span class="v">70%</span><span class="l">sifatli lid</span></div>
+        <div><button class="case-img-link" onclick="openLightbox('page/photo_2026-09-14_15-47-53.jpg', 'Obod Makon', '7 042 lid | $9 167.24 byudjet')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Ko'rish</button></div>
       </div>
     </div>
-    <div class="case-note">* Ko'rsatkichlar reklama kabineti hisobotlari asosida taqdim etilgan.</div>
+
+    <div class="case-note reveal">* Ko'rsatkichlar Facebook Ads / Instagram reklama kabinetidagi hisobotlar asosida taqdim etilgan. Skrinshotni bosib to'liq hajmini ko'rishingiz mumkin.</div>
   </div>
 </section>
 
@@ -1149,7 +1775,79 @@
     const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
     revealElements.forEach(el => observer.observe(el));
   });
+
+  // Proof View Switcher (Grid vs Table)
+  function switchProofView(view) {
+    const gridEl = document.getElementById('proofGrid');
+    const tableEl = document.getElementById('proofTable');
+    const tabGridBtn = document.getElementById('tabGridBtn');
+    const tabTableBtn = document.getElementById('tabTableBtn');
+
+    if (view === 'grid') {
+      gridEl.style.display = 'grid';
+      tableEl.classList.remove('show');
+      tabGridBtn.classList.add('active');
+      tabTableBtn.classList.remove('active');
+    } else {
+      gridEl.style.display = 'none';
+      tableEl.classList.add('show');
+      tabTableBtn.classList.add('active');
+      tabGridBtn.classList.remove('active');
+    }
+  }
+
+  // Screenshot Lightbox Modal Logic
+  function openLightbox(imgSrc, title, desc) {
+    const modal = document.getElementById('proofLightbox');
+    const modalImg = document.getElementById('lightboxImg');
+    const modalTitle = document.getElementById('lightboxTitle');
+    const modalDesc = document.getElementById('lightboxDesc');
+
+    modalImg.src = imgSrc;
+    modalImg.alt = title;
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const modal = document.getElementById('proofLightbox');
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeLightbox();
+    }
+  });
 </script>
+
+<!-- Screenshot Lightbox Modal -->
+<div class="lightbox-modal" id="proofLightbox" onclick="if(event.target === this) closeLightbox()">
+  <div class="lightbox-container" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+    <div class="lightbox-head">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="color:#34d399;display:flex;align-items:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </span>
+        <h3 id="lightboxTitle">Loyihaning reklama hisoboti</h3>
+      </div>
+      <button class="lightbox-close-btn" onclick="closeLightbox()" aria-label="Yopish">✕</button>
+    </div>
+    <div class="lightbox-body">
+      <img id="lightboxImg" src="" alt="Reklama hisoboti skrinshoti">
+    </div>
+    <div class="lightbox-foot">
+      <div id="lightboxDesc" style="color:var(--text);font-weight:600;"></div>
+      <div style="color:var(--blue-glow);display:flex;align-items:center;gap:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Haqiqiy reklama kabineti ma'lumotlari
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
