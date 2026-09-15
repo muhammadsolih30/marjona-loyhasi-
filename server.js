@@ -9,6 +9,11 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "marjona202";
+const DATABASE_CONNECTION_STRING =
+  process.env.DATABASE_URL ||
+  process.env.POSTGRES_URL ||
+  process.env.NEON_DATABASE_URL ||
+  "";
 
 app.use(cors());
 app.use(express.json());
@@ -42,10 +47,10 @@ let pool = null;
 let isDbConnected = false;
 let dbReady = Promise.resolve();
 
-if (process.env.DATABASE_URL && process.env.DATABASE_URL.trim() !== "") {
+if (DATABASE_CONNECTION_STRING.trim() !== "") {
   try {
     pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: DATABASE_CONNECTION_STRING,
       ssl: {
         rejectUnauthorized: false,
       },
@@ -288,7 +293,10 @@ app.post("/api/leads", async (req, res) => {
     });
   } catch (err) {
     console.error("Lid saqlashda xatolik:", err);
-    res.status(500).json({ success: false, message: "Serverda xatolik" });
+    res.status(500).json({
+      success: false,
+      message: process.env.VERCEL ? err.message : "Serverda xatolik",
+    });
   }
 });
 
