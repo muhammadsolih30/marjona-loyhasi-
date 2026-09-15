@@ -332,7 +332,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server http://localhost:${PORT} manzilida ishlamoqda.`);
-  console.log(`🔐 Yashirin Admin Panel: http://localhost:${PORT}/admin`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server http://localhost:${PORT} manzilida ishlamoqda.`);
+    console.log(`🔐 Yashirin Admin Panel: http://localhost:${PORT}/admin`);
+  });
+}
+
+module.exports = app;
