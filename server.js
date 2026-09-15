@@ -204,9 +204,15 @@ function requireAuth(req, res, next) {
 // 1. Yangi lidni saqlash (Landing page formasi uchun)
 app.post('/api/leads', async (req, res) => {
   try {
-    const { name, phone, biz, budget } = req.body;
+    const name = typeof req.body.name === 'string' ? req.body.name.trim() : '';
+    const phone = typeof req.body.phone === 'string' ? req.body.phone.trim() : '';
+    const biz = typeof req.body.biz === 'string' ? req.body.biz.trim() : '';
+    const budget = typeof req.body.budget === 'string' ? req.body.budget.trim() : '';
     if (!name || !phone) {
       return res.status(400).json({ success: false, message: 'Ism va telefon to\'ldirilishi shart.' });
+    }
+    if (name.length > 255 || phone.length > 100 || biz.length > 100 || budget.length > 100) {
+      return res.status(400).json({ success: false, message: 'Kiritilgan ma\'lumotlar juda uzun.' });
     }
 
     const saved = await saveLead({ name, phone, biz, budget });

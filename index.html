@@ -1197,6 +1197,15 @@
       padding: 13px 14px;
       font-size: 15px;
       font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .field select {
+      appearance: auto;
+      -webkit-appearance: auto;
+      position: relative;
+      z-index: 2;
     }
 
     .field input:focus,
@@ -1223,6 +1232,15 @@
       padding: 14px 16px;
       border: 1px solid var(--blue);
       color: var(--blue-glow);
+      font-size: 14px;
+    }
+
+    .form-error {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border: 1px solid #ef4444;
+      color: #ff8a8a;
       font-size: 14px;
     }
 
@@ -2108,6 +2126,7 @@
             <button type="submit" class="btn btn-primary" id="leadSubmitBtn">Ro'yxatdan o'tish</button>
             <div class="form-success" id="formSuccess">So'rovingiz qabul qilindi. Telegram ochilmasa, to'g'ridan-to'g'ri
               yozing: @Rabbimova7</div>
+            <div class="form-error" id="formError" role="alert"></div>
           </form>
           <div class="form-note">Ma'lumotlaringiz faqat aloqa uchun ishlatiladi.</div>
         </div>
@@ -2182,7 +2201,18 @@
       var phone = document.getElementById('f-phone').value.trim();
       var biz = document.getElementById('f-biz').value;
       var budget = document.getElementById('f-budget').value;
-      if (!name || !phone || !biz || !budget) return;
+      var successEl = document.getElementById('formSuccess');
+      var errorEl = document.getElementById('formError');
+      if (successEl) successEl.style.display = 'none';
+      if (errorEl) errorEl.style.display = 'none';
+
+      if (!name || !phone || !biz || !budget) {
+        if (errorEl) {
+          errorEl.textContent = 'Iltimos, barcha maydonlarni to\'ldiring.';
+          errorEl.style.display = 'block';
+        }
+        return;
+      }
 
       if (submitBtn) {
         submitBtn.disabled = true;
@@ -2191,10 +2221,8 @@
 
       // Backend API ga saqlash
       try {
-        var apiBase = (window.location.protocol === 'http:' || window.location.protocol === 'https:') && window.location.port === '3000'
-          ? ''
-          : 'http://localhost:3000';
-        await fetch(apiBase + '/api/leads', {
+        var apiBase = window.location.protocol === 'file:' ? 'http://localhost:3000' : '';
+        var response = await fetch(apiBase + '/api/leads', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -2204,14 +2232,26 @@
             budget: budget
           })
         });
+        var result = await response.json();
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || 'Arizani saqlashda xatolik yuz berdi.');
+        }
       } catch (err) {
-        console.warn('API save error (offline or direct):', err);
+        console.error('API save error:', err);
+        if (errorEl) {
+          errorEl.textContent = err.message || 'Server bilan bog\'lanib bo\'lmadi. Iltimos, keyinroq qayta urinib ko\'ring.';
+          errorEl.style.display = 'block';
+        }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Ro'yxatdan o'tish";
+        }
+        return;
       }
 
       var text = "Salom, men " + name + ". Biznes turi: " + biz + ". Telefon: " + phone + ". Oylik byudjet: " + budget + ". Bepul maslahat olishni xohlayman.";
       var tgLink = "https://t.me/Rabbimova7?text=" + encodeURIComponent(text);
 
-      var successEl = document.getElementById('formSuccess');
       if (successEl) successEl.style.display = 'block';
 
       if (submitBtn) {
