@@ -665,6 +665,90 @@
       margin-top: 4px;
     }
 
+    .proof-verified-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 3px 8px;
+      border-radius: 2px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .proof-metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      background: rgba(17, 28, 51, 0.5);
+      border: 1px solid var(--line-soft);
+      padding: 12px;
+    }
+
+    .proof-metric-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .proof-metric-item .val {
+      font-size: 17px;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--text);
+    }
+
+    .proof-metric-item.highlight .val {
+      color: var(--blue-glow);
+    }
+
+    .proof-metric-item.quality .val {
+      color: var(--amber);
+    }
+
+    .proof-metric-item .lbl {
+      font-size: 11.5px;
+      color: var(--muted);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .proof-card-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 1px dashed var(--line-soft);
+    }
+
+    .proof-view-btn {
+      background: transparent;
+      border: none;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Space Grotesk', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0;
+      cursor: pointer;
+      transition: color .2s ease, transform .2s ease;
+    }
+
+    .proof-view-btn:hover {
+      color: var(--blue-glow);
+      transform: translateX(3px);
+    }
+
+    .proof-status-tag {
+      font-size: 11.5px;
+      color: var(--muted-2);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
     /* Fullscreen Image Lightbox Modal */
     .lightbox-modal {
       position: fixed;
@@ -1511,6 +1595,43 @@
                 <span class="niche">Qurilish</span>
                 <h3 class="client">Jahon House</h3>
               </div>
+              <span class="proof-verified-pill">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Tasdiqlangan
+              </span>
+            </div>
+
+            <div class="proof-metrics-grid">
+              <div class="proof-metric-item highlight">
+                <span class="val">23 002</span>
+                <span class="lbl">Jami lid</span>
+              </div>
+              <div class="proof-metric-item">
+                <span class="val">$1.45</span>
+                <span class="lbl">1 ta lid narxi</span>
+              </div>
+              <div class="proof-metric-item">
+                <span class="val">$23 002</span>
+                <span class="lbl">Sarflangan byudjet</span>
+              </div>
+              <div class="proof-metric-item quality">
+                <span class="val">70%</span>
+                <span class="lbl">Sifatli lid</span>
+              </div>
+            </div>
+
+            <div class="proof-card-footer">
+              <button class="proof-view-btn"
+                onclick="openLightbox('page/photo_2026-09-01_05-28-35.jpg', 'Qurilish — Jahon House', '23 002 lid | $23 002 byudjet | $1.45/lid | 70% sifat')">
+                Hisobotni tekshirish
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+              <span class="proof-status-tag">Yirik turar joy</span>
             </div>
           </div>
         </article>
@@ -1533,6 +1654,43 @@
                 <span class="niche">Qurilish</span>
                 <h3 class="client">Milliy Makon</h3>
               </div>
+              <span class="proof-verified-pill">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Tasdiqlangan
+              </span>
+            </div>
+
+            <div class="proof-metrics-grid">
+              <div class="proof-metric-item highlight">
+                <span class="val">6 163</span>
+                <span class="lbl">Jami lid</span>
+              </div>
+              <div class="proof-metric-item">
+                <span class="val">$1.53</span>
+                <span class="lbl">1 ta lid narxi</span>
+              </div>
+              <div class="proof-metric-item">
+                <span class="val">$9 445.75</span>
+                <span class="lbl">Sarflangan byudjet</span>
+              </div>
+              <div class="proof-metric-item quality">
+                <span class="val">70%</span>
+                <span class="lbl">Sifatli lid</span>
+              </div>
+            </div>
+
+            <div class="proof-card-footer">
+              <button class="proof-view-btn"
+                onclick="openLightbox('page/photo_2026-09-14_15-47-06.jpg', 'Qurilish — Milliy Makon', '6 163 lid | $9 445.75 byudjet | $1.53/lid | 70% sifat')">
+                Hisobotni tekshirish
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+              <span class="proof-status-tag">Ko'chmas mulk</span>
             </div>
           </div>
         </article>
@@ -1555,6 +1713,43 @@
                 <span class="niche">Qurilish</span>
                 <h3 class="client">Obod Makon</h3>
               </div>
+              <span class="proof-verified-pill">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Tasdiqlangan
+              </span>
+            </div>
+
+            <div class="proof-metrics-grid">
+              <div class="proof-metric-item highlight">
+                <span class="val">7 042</span>
+                <span class="lbl">Jami lid</span>
+              </div>
+              <div class="proof-metric-item">
+                <span class="val">$1.30</span>
+                <span class="lbl">1 ta lid narxi</span>
+              </div>
+              <div class="proof-metric-item">
+                <span class="val">$9 167.24</span>
+                <span class="lbl">Sarflangan byudjet</span>
+              </div>
+              <div class="proof-metric-item quality">
+                <span class="val">70%</span>
+                <span class="lbl">Sifatli lid</span>
+              </div>
+            </div>
+
+            <div class="proof-card-footer">
+              <button class="proof-view-btn"
+                onclick="openLightbox('page/photo_2026-09-14_15-47-53.jpg', 'Qurilish — Obod Makon', '7 042 lid | $9 167.24 byudjet | $1.30/lid | 70% sifat')">
+                Hisobotni tekshirish
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+              <span class="proof-status-tag">Aholi maskani</span>
             </div>
           </div>
         </article>
@@ -1577,6 +1772,43 @@
                 <span class="niche">B2B Sektor</span>
                 <h3 class="client">Bodor</h3>
               </div>
+              <span class="proof-verified-pill">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Tasdiqlangan
+              </span>
+            </div>
+
+            <div class="proof-metrics-grid">
+              <div class="proof-metric-item highlight">
+                <span class="val">1 393</span>
+                <span class="lbl">Jami lid</span>
+              </div>
+              <div class="proof-metric-item">
+                <span class="val">$3.31</span>
+                <span class="lbl">1 ta lid narxi</span>
+              </div>
+              <div class="proof-metric-item">
+                <span class="val">$4 614.82</span>
+                <span class="lbl">Sarflangan byudjet</span>
+              </div>
+              <div class="proof-metric-item quality">
+                <span class="val">70%</span>
+                <span class="lbl">Sifatli lid</span>
+              </div>
+            </div>
+
+            <div class="proof-card-footer">
+              <button class="proof-view-btn"
+                onclick="openLightbox('page/photo_2026-09-14_15-47-30.jpg', 'B2B Sektori — Bodor', '1 393 lid | $4 614.82 byudjet | $3.31/lid | 70% sifat')">
+                Hisobotni tekshirish
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+              <span class="proof-status-tag">B2B uskunalar</span>
             </div>
           </div>
         </article>
@@ -1600,6 +1832,43 @@
                 <span class="niche">Qurilish</span>
                 <h3 class="client">Ulug' House</h3>
               </div>
+              <span class="proof-verified-pill">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Tasdiqlangan
+              </span>
+            </div>
+
+            <div class="proof-metrics-grid">
+              <div class="proof-metric-item highlight">
+                <span class="val">686</span>
+                <span class="lbl">Jami lid</span>
+              </div>
+              <div class="proof-metric-item">
+                <span class="val">$1.58</span>
+                <span class="lbl">1 ta lid narxi</span>
+              </div>
+              <div class="proof-metric-item">
+                <span class="val">$1 085.91</span>
+                <span class="lbl">Sarflangan byudjet</span>
+              </div>
+              <div class="proof-metric-item quality">
+                <span class="val">70%</span>
+                <span class="lbl">Sifatli lid</span>
+              </div>
+            </div>
+
+            <div class="proof-card-footer">
+              <button class="proof-view-btn"
+                onclick="openLightbox('page/image_2026-09-01_05-26-24.png', 'Qurilish — Ulug\' House residence', '686 lid | $1 085.91 byudjet | $1.58/lid | 70% sifat')">
+                Hisobotni tekshirish
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+              <span class="proof-status-tag">Residence turar joy</span>
             </div>
           </div>
         </article>
@@ -1836,9 +2105,9 @@
                 <option>Hali aniq emas</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary">Ro'yxatdan o'tish</button>
+            <button type="submit" class="btn btn-primary" id="leadSubmitBtn">Ro'yxatdan o'tish</button>
             <div class="form-success" id="formSuccess">So'rovingiz qabul qilindi. Telegram ochilmasa, to'g'ridan-to'g'ri
-              yozing: @marjona_rabbimova</div>
+              yozing: @Rabbimova7</div>
           </form>
           <div class="form-note">Ma'lumotlaringiz faqat aloqa uchun ishlatiladi.</div>
         </div>
@@ -1850,8 +2119,8 @@
     <div class="wrap footer-row">
       <div class="brandmark"><span class="dot"></span> Marjona Rabbimova</div>
       <div class="footer-links">
-        <a href="https://t.me/marjona_rabbimova" target="_blank" rel="noopener">Telegram</a>
-        <a href="https://instagram.com/marjona_rabbimova" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://t.me/Rabbimova7" target="_blank" rel="noopener">Telegram</a>
+        <a href="https://www.instagram.com/marjona_rabbim0va/" target="_blank" rel="noopener">Instagram</a>
       </div>
       <div class="footer-copy">© 2026 Marjona Rabbimova. Barcha huquqlar himoyalangan.</div>
     </div>
@@ -1906,18 +2175,50 @@
         requestAnimationFrame(scroll);
       }
     });
-    document.getElementById('leadForm').addEventListener('submit', function (e) {
+    document.getElementById('leadForm').addEventListener('submit', async function (e) {
       e.preventDefault();
+      var submitBtn = document.getElementById('leadSubmitBtn');
       var name = document.getElementById('f-name').value.trim();
       var phone = document.getElementById('f-phone').value.trim();
       var biz = document.getElementById('f-biz').value;
       var budget = document.getElementById('f-budget').value;
       if (!name || !phone || !biz || !budget) return;
 
-      var text = "Salom, men " + name + ". Biznes turi: " + biz + ". Telefon: " + phone + ". Oylik byudjet: " + budget + ". Bepul maslahat olishni xohlayman.";
-      var tgLink = "https://t.me/marjona_rabbimova?text=" + encodeURIComponent(text);
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Yuborilmoqda...";
+      }
 
-      document.getElementById('formSuccess').style.display = 'block';
+      // Backend API ga saqlash
+      try {
+        var apiBase = (window.location.protocol === 'http:' || window.location.protocol === 'https:') && window.location.port === '3000'
+          ? ''
+          : 'http://localhost:3000';
+        await fetch(apiBase + '/api/leads', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            phone: phone,
+            biz: biz,
+            budget: budget
+          })
+        });
+      } catch (err) {
+        console.warn('API save error (offline or direct):', err);
+      }
+
+      var text = "Salom, men " + name + ". Biznes turi: " + biz + ". Telefon: " + phone + ". Oylik byudjet: " + budget + ". Bepul maslahat olishni xohlayman.";
+      var tgLink = "https://t.me/Rabbimova7?text=" + encodeURIComponent(text);
+
+      var successEl = document.getElementById('formSuccess');
+      if (successEl) successEl.style.display = 'block';
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Ro'yxatdan o'tish";
+      }
+
       window.open(tgLink, '_blank');
       this.reset();
     });
@@ -2005,7 +2306,16 @@
         </div>
         <button class="lightbox-close-btn" onclick="closeLightbox()" aria-label="Yopish">✕</button>
       </div>
-      <div class="lightbox-body">
+      <div class="lightbox-body">manashular kerak emas olib tashlagin , yani pastagi rasimlari
+        4:25 PM
+        ￼
+        ￼
+        ￼
+        Worked for 1s
+        Error
+        Unknown: Agent execution terminated due to error.
+        Error ID: 6e908276-0c23-4fa4-a540-e897695aaae8-1
+        4:25 PM
         <img id="lightboxImg" src="" alt="Reklama hisoboti skrinshoti">
       </div>
       <div class="lightbox-foot">

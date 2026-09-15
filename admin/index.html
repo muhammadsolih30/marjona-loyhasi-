@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boshqaruv Paneli — Marjona Rabbimova</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b14;
+      --card: #0e1526;
+      --card-hover: #121c33;
+      --border: #1e2a44;
+      --border-light: #2a3a5e;
+      --blue: #3aa0ff;
+      --blue-glow: rgba(58, 160, 255, 0.25);
+      --amber: #ffb648;
+      --green: #10b981;
+      --red: #ef4444;
+      --purple: #8b5cf6;
+      --text: #edf2fa;
+      --text-muted: #8ca0c4;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4, .brand {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* Auth Screen */
+    #authScreen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      background: radial-gradient(circle at top center, #152240 0%, #070b14 70%);
+    }
+
+    .login-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px 32px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px var(--blue-glow);
+      text-align: center;
+    }
+
+    .login-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 20px;
+      border-radius: 12px;
+      background: rgba(58, 160, 255, 0.1);
+      border: 1px solid var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue);
+    }
+
+    .login-box h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .login-box p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .input-field {
+      width: 100%;
+      background: #090e1c;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      color: var(--text);
+      font-size: 15px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px var(--blue-glow);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #070b14;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: #5ab1ff;
+      box-shadow: 0 4px 15px var(--blue-glow);
+    }
+
+    .btn-secondary {
+      background: #15223c;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #1b2b4d;
+      border-color: var(--border-light);
+    }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ff6b6b;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .btn-danger:hover {
+      background: #ef4444;
+      color: white;
+    }
+
+    .btn-telegram {
+      background: rgba(0, 136, 204, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(0, 136, 204, 0.3);
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .btn-telegram:hover {
+      background: #0088cc;
+      color: white;
+    }
+
+    .btn-call {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .btn-call:hover {
+      background: #10b981;
+      color: white;
+    }
+
+    .error-msg {
+      color: var(--red);
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* Dashboard Layout */
+    #dashboardScreen {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 10px var(--blue);
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .db-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+      background: rgba(16, 185, 129, 0.1);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .db-badge.warning {
+      background: rgba(255, 182, 72, 0.1);
+      color: #ffb648;
+      border-color: rgba(255, 182, 72, 0.3);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    main {
+      padding: 28px 24px;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      flex: 1;
+    }
+
+    /* Stat Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--blue);
+    }
+
+    .stat-card.green::before { background: var(--green); }
+    .stat-card.amber::before { background: var(--amber); }
+    .stat-card.purple::before { background: var(--purple); }
+
+    .stat-title {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* Filters Bar */
+    .controls-bar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: #090e1c;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px 10px 36px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: var(--blue);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .filters-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .select-filter {
+      background: #090e1c;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-filter:focus {
+      border-color: var(--blue);
+    }
+
+    /* Leads Table */
+    .table-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow-x: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background: #090e1c;
+      padding: 14px 18px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      color: var(--text);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .lead-name {
+      font-weight: 600;
+      font-size: 15px;
+      color: #fff;
+    }
+
+    .lead-date {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .status-select {
+      background: #090e1c;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .status-yangi { background: rgba(58, 160, 255, 0.15); color: #60a5fa; border: 1px solid rgba(58, 160, 255, 0.3); }
+    .status-boglanildi { background: rgba(255, 182, 72, 0.15); color: #fbbf24; border: 1px solid rgba(255, 182, 72, 0.3); }
+    .status-jarayonda { background: rgba(139, 92, 246, 0.15); color: #c084fc; border: 1px solid rgba(139, 92, 246, 0.3); }
+    .status-kelishildi { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .status-bekor { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .empty-state {
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .empty-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+      opacity: 0.6;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 1. LOGIN SCREEN -->
+  <div id="authScreen">
+    <div class="login-box">
+      <div class="login-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+      </div>
+      <h2>Admin Kirish</h2>
+      <p>Marjona Rabbimova boshqaruv paneliga kirish uchun parolni kiriting</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="passwordInput">Parol</label>
+          <input type="password" id="passwordInput" class="input-field" placeholder="Parolni kiriting..." required autofocus autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginBtn">Kirish</button>
+        <div id="loginError" class="error-msg">Noto'g'ri parol! Iltimos, qaytadan urinib ko'ring.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. DASHBOARD SCREEN -->
+  <div id="dashboardScreen">
+    <header>
+      <div class="brand-section">
+        <span class="brand-dot"></span>
+        <span class="brand-title">Marjona Rabbimova — Admin</span>
+        <span id="dbStatusBadge" class="db-badge">Tekshirilmoqda...</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="refreshBtn" title="Yangilash">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+          </svg>
+          Yangilash
+        </button>
+        <button class="btn btn-secondary" id="exportBtn" title="CSV ga yuklab olish">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Eksport (CSV)
+        </button>
+        <button class="btn btn-secondary" id="logoutBtn" title="Tizimdan chiqish">
+          Chiqish
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- KPI Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-title">Jami Murojaatlar</div>
+          <div class="stat-value" id="statTotal">0</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-title">Bugungi Lidlar</div>
+          <div class="stat-value" id="statToday">0</div>
+        </div>
+        <div class="stat-card amber">
+          <div class="stat-title">Yangi (Ko'rilmagan)</div>
+          <div class="stat-value" id="statNew">0</div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-title">Kelishildi (Muvaffaqiyatli)</div>
+          <div class="stat-value" id="statWon">0</div>
+        </div>
+      </div>
+
+      <!-- Controls & Filters -->
+      <div class="controls-bar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Ism yoki telefon bo'yicha qidirish...">
+        </div>
+        <div class="filters-group">
+          <select id="statusFilter" class="select-filter">
+            <option value="">Barcha holatlar</option>
+            <option value="Yangi">Yangi</option>
+            <option value="Bog'lanildi">Bog'lanildi</option>
+            <option value="Jarayonda">Jarayonda</option>
+            <option value="Kelishildi">Kelishildi</option>
+            <option value="Bekor">Bekor</option>
+          </select>
+          <select id="bizFilter" class="select-filter">
+            <option value="">Barcha sohalar</option>
+            <option value="Qurilish">Qurilish</option>
+            <option value="Ta'lim">Ta'lim</option>
+            <option value="B2B">B2B</option>
+            <option value="Boshqa">Boshqa</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Leads Table -->
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Mijoz</th>
+              <th>Telefon</th>
+              <th>Soha</th>
+              <th>Byudjet</th>
+              <th>Sana</th>
+              <th>Holat</th>
+              <th>Tezkor Aloqa & Amallar</th>
+            </tr>
+          </thead>
+          <tbody id="leadsTableBody">
+            <!-- Dynamic lead rows -->
+          </tbody>
+        </table>
+        <div id="emptyState" class="empty-state" style="display: none;">
+          <div class="empty-icon">📭</div>
+          <h3>Hech qanday lid topilmadi</h3>
+          <p>Murojaatlar qoldirilganda shu yerda paydo bo'ladi.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    const API_BASE = (window.location.protocol === 'http:' || window.location.protocol === 'https:') && window.location.port === '3000'
+      ? ''
+      : 'http://localhost:3000';
+
+    let currentToken = localStorage.getItem('marjona_admin_token') || '';
+    let leadsData = [];
+
+    // Toast helper
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.style.borderColor = type === 'error' ? 'var(--red)' : 'var(--blue)';
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Check existing auth
+    async function checkAuth() {
+      if (!currentToken) {
+        showAuthScreen();
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/verify`, {
+          headers: { 'Authorization': `Bearer ${currentToken}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          showDashboard(data.dbConnected);
+          loadLeads();
+        } else {
+          localStorage.removeItem('marjona_admin_token');
+          currentToken = '';
+          showAuthScreen();
+        }
+      } catch (err) {
+        showAuthScreen();
+      }
+    }
+
+    function showAuthScreen() {
+      document.getElementById('authScreen').style.display = 'flex';
+      document.getElementById('dashboardScreen').style.display = 'none';
+    }
+
+    function showDashboard(isDbConnected) {
+      document.getElementById('authScreen').style.display = 'none';
+      document.getElementById('dashboardScreen').style.display = 'flex';
+      updateDbBadge(isDbConnected);
+    }
+
+    function updateDbBadge(isDbConnected) {
+      const badge = document.getElementById('dbStatusBadge');
+      if (isDbConnected) {
+        badge.className = 'db-badge';
+        badge.innerHTML = '🟢 Neon DB Faol';
+      } else {
+        badge.className = 'db-badge warning';
+        badge.innerHTML = '🟡 Zaxira rejim (Local DB)';
+      }
+    }
+
+    // Login Form Submit
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const password = document.getElementById('passwordInput').value;
+      const errorEl = document.getElementById('loginError');
+      const submitBtn = document.getElementById('loginBtn');
+
+      errorEl.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Kirilmoqda...';
+
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password })
+        });
+        const data = await res.json();
+        if (res.ok && data.token) {
+          currentToken = data.token;
+          localStorage.setItem('marjona_admin_token', currentToken);
+          document.getElementById('passwordInput').value = '';
+          showDashboard(false);
+          await loadLeads();
+          showToast('Xush kelibsiz, Marjona!');
+        } else {
+          errorEl.style.display = 'block';
+          errorEl.textContent = data.message || "Noto'g'ri parol!";
+        }
+      } catch (err) {
+        errorEl.style.display = 'block';
+        errorEl.textContent = 'Server bilan ulanishda xatolik. Server ishga tushirilganini tekshiring.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Kirish';
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('marjona_admin_token');
+      currentToken = '';
+      showAuthScreen();
+      showToast('Tizimdan chiqildi');
+    });
+
+    // Refresh
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+      loadLeads();
+      showToast('Ma\'lumotlar yangilandi');
+    });
+
+    // Load Leads & Stats
+    async function loadLeads() {
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/leads`, {
+          headers: { 'Authorization': `Bearer ${currentToken}` }
+        });
+        if (res.status === 401) {
+          showAuthScreen();
+          return;
+        }
+        const data = await res.json();
+        if (data.success) {
+          leadsData = data.leads;
+          updateDbBadge(data.dbConnected);
+          renderStats();
+          renderTable();
+        }
+      } catch (err) {
+        console.error('Lidlarni yuklashda xato:', err);
+      }
+    }
+
+    // Render Stats
+    function renderStats() {
+      const today = new Date().toISOString().split('T')[0];
+      const total = leadsData.length;
+      const todayCount = leadsData.filter(l => {
+        try {
+          return new Date(l.created_at).toISOString().split('T')[0] === today;
+        } catch { return false; }
+      }).length;
+      const newCount = leadsData.filter(l => l.status === 'Yangi').length;
+      const wonCount = leadsData.filter(l => l.status === 'Kelishildi').length;
+
+      document.getElementById('statTotal').textContent = total;
+      document.getElementById('statToday').textContent = todayCount;
+      document.getElementById('statNew').textContent = newCount;
+      document.getElementById('statWon').textContent = wonCount;
+    }
+
+    // Render Table with Filters
+    function renderTable() {
+      const search = document.getElementById('searchInput').value.toLowerCase().trim();
+      const statusFilter = document.getElementById('statusFilter').value;
+      const bizFilter = document.getElementById('bizFilter').value;
+      const tbody = document.getElementById('leadsTableBody');
+      const emptyState = document.getElementById('emptyState');
+
+      const filtered = leadsData.filter(lead => {
+        const matchSearch = (lead.name && lead.name.toLowerCase().includes(search)) ||
+                            (lead.phone && lead.phone.toLowerCase().includes(search));
+        const matchStatus = !statusFilter || lead.status === statusFilter;
+        const matchBiz = !bizFilter || lead.business_type === bizFilter;
+        return matchSearch && matchStatus && matchBiz;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      tbody.innerHTML = filtered.map(lead => {
+        const dateObj = new Date(lead.created_at);
+        const formattedDate = !isNaN(dateObj) 
+          ? dateObj.toLocaleDateString('uz-UZ', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+          : '-';
+
+        // Clean phone for tel: and tg
+        const rawPhone = (lead.phone || '').replace(/[^0-9+]/g, '');
+        const tgNumber = rawPhone.replace('+', '');
+
+        return `
+          <tr>
+            <td><strong style="color: var(--blue);">#${lead.id}</strong></td>
+            <td>
+              <div class="lead-name">${escapeHtml(lead.name)}</div>
+            </td>
+            <td>
+              <a href="tel:${rawPhone}" style="color: var(--text); text-decoration: none; font-weight: 500;">${escapeHtml(lead.phone)}</a>
+            </td>
+            <td><span class="status-badge status-jarayonda">${escapeHtml(lead.business_type || '-')}</span></td>
+            <td><strong style="color: var(--amber);">${escapeHtml(lead.budget || '-')}</strong></td>
+            <td><div class="lead-date">${formattedDate}</div></td>
+            <td>
+              <select class="status-select" onchange="updateStatus(${lead.id}, this.value)">
+                <option value="Yangi" ${lead.status === 'Yangi' ? 'selected' : ''}>🔵 Yangi</option>
+                <option value="Bog'lanildi" ${lead.status === "Bog'lanildi" ? 'selected' : ''}>🟡 Bog'lanildi</option>
+                <option value="Jarayonda" ${lead.status === 'Jarayonda' ? 'selected' : ''}>🟣 Jarayonda</option>
+                <option value="Kelishildi" ${lead.status === 'Kelishildi' ? 'selected' : ''}>🟢 Kelishildi</option>
+                <option value="Bekor" ${lead.status === 'Bekor' ? 'selected' : ''}>🔴 Bekor</option>
+              </select>
+            </td>
+            <td>
+              <div class="action-buttons">
+                <a href="https://t.me/+${tgNumber}" target="_blank" class="btn btn-telegram" title="Telegramda yozish">
+                  Telegram
+                </a>
+                <a href="tel:${rawPhone}" class="btn btn-call" title="Qo'ng'iroq qilish">
+                  Qo'ng'iroq
+                </a>
+                <button onclick="deleteLeadItem(${lead.id})" class="btn btn-danger" title="O'chirish">
+                  O'chirish
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Update Status
+    async function updateStatus(id, newStatus) {
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/leads/${id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${currentToken}`
+          },
+          body: JSON.stringify({ status: newStatus })
+        });
+        if (res.ok) {
+          const item = leadsData.find(l => l.id === id);
+          if (item) item.status = newStatus;
+          renderStats();
+          showToast(`Lid holati "${newStatus}" ga o'zgartirildi`);
+        }
+      } catch (err) {
+        showToast('Holatni o\'zgartirishda xato yuz berdi', 'error');
+      }
+    }
+
+    // Delete Lead
+    async function deleteLeadItem(id) {
+      if (!confirm(`Haqiqatan ham #${id} raqamli murojaatni o'chirmoqchimisiz?`)) return;
+      try {
+        const res = await fetch(`${API_BASE}/api/admin/leads/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${currentToken}` }
+        });
+        if (res.ok) {
+          leadsData = leadsData.filter(l => l.id !== id);
+          renderStats();
+          renderTable();
+          showToast(`Lid #${id} o'chirildi`);
+        }
+      } catch (err) {
+        showToast('O\'chirishda xatolik', 'error');
+      }
+    }
+
+    // Export CSV
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      if (!leadsData.length) {
+        showToast('Eksport qilish uchun ma\'lumot yo\'q', 'error');
+        return;
+      }
+      let csv = 'ID,Ism,Telefon,Biznes turi,Byudjet,Holat,Sana\n';
+      leadsData.forEach(l => {
+        csv += `"${l.id}","${(l.name || '').replace(/"/g, '""')}","${(l.phone || '').replace(/"/g, '""')}","${l.business_type || ''}","${l.budget || ''}","${l.status || ''}","${l.created_at || ''}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `marjona_leads_${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Lidlar CSV faylga yuklab olindi');
+    });
+
+    // Event listeners for filters
+    document.getElementById('searchInput').addEventListener('input', renderTable);
+    document.getElementById('statusFilter').addEventListener('change', renderTable);
+    document.getElementById('bizFilter').addEventListener('change', renderTable);
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Initial check
+    checkAuth();
+  </script>
+</body>
+</html>
