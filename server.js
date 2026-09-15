@@ -46,6 +46,7 @@ if (!fs.existsSync(fallbackFile)) {
 let pool = null;
 let isDbConnected = false;
 let dbReady = Promise.resolve();
+let dbInitializationError = null;
 
 if (DATABASE_CONNECTION_STRING.trim() !== "") {
   try {
@@ -89,6 +90,7 @@ if (DATABASE_CONNECTION_STRING.trim() !== "") {
         );
       })
       .catch((err) => {
+        dbInitializationError = err;
         console.error(
           "⚠️ Neon PostgreSQL ulanishida xatolik yuz berdi. Fallback rejimiga o'tilmoqda:",
           err.message,
@@ -130,7 +132,9 @@ async function saveLead(leadData) {
 
   if (process.env.VERCEL) {
     throw new Error(
-      "Vercel uchun DATABASE_URL sozlanmagan yoki Neon bazasi ulanmagan.",
+      dbInitializationError
+        ? `Neon bazasiga ulanish xatosi: ${dbInitializationError.message}`
+        : "Vercel uchun DATABASE_URL sozlanmagan.",
     );
   }
 
