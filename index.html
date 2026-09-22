@@ -1979,8 +1979,7 @@
               </select>
             </div>
             <button type="submit" class="btn btn-primary" id="leadSubmitBtn">Ro'yxatdan o'tish</button>
-            <div class="form-success" id="formSuccess">So'rovingiz qabul qilindi. Telegram ochilmasa, to'g'ridan-to'g'ri
-              yozing: @Rabbimova7</div>
+            <div class="form-success" id="formSuccess">✅ Muvaffaqiyatli ro'yxatdan o'tdingiz! Tez orada siz bilan bog'lanamiz.</div>
             <div class="form-error" id="formError" role="alert"></div>
           </form>
           <div class="form-note">Ma'lumotlaringiz faqat aloqa uchun ishlatiladi.</div>
@@ -2099,7 +2098,7 @@
       } catch (err) {
         console.error('API save error:', err);
         if (errorEl) {
-          errorEl.textContent = err.message || 'Server bilan bog\'lanib bo\'lmadi. Iltimos, keyinroq qayta urinib ko\'ring.';
+          errorEl.textContent = '❌ Xatolik yuz berdi. Iltimos, keyinroq qayta urinib ko\'ring.';
           errorEl.style.display = 'block';
         }
         if (submitBtn) {
@@ -2109,9 +2108,6 @@
         return;
       }
 
-      var text = "Salom, men " + name + ". Biznes turi: " + biz + ". Telefon: " + phone + ". Oylik byudjet: " + budget + ". Bepul maslahat olishni xohlayman.";
-      var tgLink = "https://t.me/Rabbimova7?text=" + encodeURIComponent(text);
-
       if (successEl) successEl.style.display = 'block';
 
       if (submitBtn) {
@@ -2119,7 +2115,6 @@
         submitBtn.textContent = "Ro'yxatdan o'tish";
       }
 
-      window.open(tgLink, '_blank');
       this.reset();
     });
 
