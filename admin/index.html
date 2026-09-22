@@ -690,9 +690,10 @@
   <div id="toast"></div>
 
   <script>
-    const API_BASE = window.location.protocol === 'http:' || window.location.protocol === 'https:'
-      ? ''
-      : 'http://localhost:3000';
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const API_BASE = isLocalhost && window.location.port !== '3000'
+      ? 'http://localhost:3000'
+      : '';
 
     let currentToken = localStorage.getItem('marjona_admin_token') || '';
     let leadsData = [];

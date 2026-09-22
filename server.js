@@ -18,6 +18,10 @@ const DATABASE_CONNECTION_STRING =
 app.use(cors());
 app.use(express.json());
 
+// Statik papkalarni to'g'ridan-to'g'ri ulash (Vercel va local server uchun)
+app.use("/page", express.static(path.join(__dirname, "page")));
+app.use("/image", express.static(path.join(__dirname, "image")));
+
 // In-memory active tokens for admin session
 const activeSessions = new Set();
 
